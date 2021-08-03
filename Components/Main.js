@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
-import MiddleListSection from './MiddleListSection/MiddleListSection';
-import TopProfile from './TopProfile/TopProfile';
+import MiddleListSection from './SettingScreen/MiddleListSection/MiddleListSection'
+import TopProfile from './SettingScreen/TopProfile/TopProfile';
 
 const height = Dimensions.get("window").height;
 const width = Dimensions.get("window").width;
