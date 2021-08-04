@@ -232,7 +232,7 @@ const Kit = () => {
   ]);
 
   return (
-    <View style={{flexDirection: 'row', justifyContent: 'flex-start', flex: 1}}>
+    <View style={{flexDirection: 'row', justifyContent: 'flex-start', flex: 1,marginLeft:8.0}}>
       {KitItems.map(item => {
         if (item['isSelected']) {
           return (
