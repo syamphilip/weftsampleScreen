@@ -5,8 +5,8 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import {NavigationContainer} from '@react-navigation/native';
-import Main from './Components/Main';
-import HomeScreen from './Components/HomeScreen';
+import Main from './Components/SettingScreen/Main';
+import HomeScreen from './Components/HomeScreen/HomeScreen';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import PayementAddressScreen from './Components/SettingScreen/MiddleListSection/PayementAddressScreen/PayementAddressScreen';
 
