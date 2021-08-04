@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -7,8 +7,10 @@ import {
   TouchableOpacity,
   Image,
   Dimensions,
+  ScrollView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import Swiper from 'react-native-swiper';
 
 const heightScreen = Dimensions.get('window').height;
 const widthScreen = Dimensions.get('window').width;
@@ -17,13 +19,28 @@ export default function HomeScreen() {
   const [cartCount, setcartCount] = useState(0);
   const [addedToCart, setaddedToCart] = useState(false);
 
+  const [JersyImage, setJersyImage] = useState([
+    {
+      key: 1,
+      img:'https://cdn.shopify.com/s/files/1/0333/3029/8924/products/brazil-2020-stadium-away-football-shirt-6cbhDn-removebg-preview_720x.png?v=1627865848',
+    },
+    {
+      key: 2,
+      img:'https://cdn.shopify.com/s/files/1/0333/3029/8924/products/brazil-2020-stadium-away-football-shirt-6cbhDn-removebg-preview_720x.png?v=1627865848',
+    },
+    {
+      key: 3,
+      img:'https://cdn.shopify.com/s/files/1/0333/3029/8924/products/brazil-2020-stadium-away-football-shirt-6cbhDn-removebg-preview_720x.png?v=1627865848',
+    },
+  ]);
+
   useEffect(() => {
-      if(cartCount==0){
-          setaddedToCart(false);
-      }else{
-          setaddedToCart(true);
-      }
-  }, [cartCount])
+    if (cartCount == 0) {
+      setaddedToCart(false);
+    } else {
+      setaddedToCart(true);
+    }
+  }, [cartCount]);
 
   return (
     <SafeAreaView style={styles.conatiner}>
@@ -42,22 +59,56 @@ export default function HomeScreen() {
         </TouchableOpacity>
       </View>
 
-      <View style={styles.imageContainer}>
-        <Image
-          source={{
-            uri: 'https://cdn.shopify.com/s/files/1/0333/3029/8924/products/brazil-2020-stadium-away-football-shirt-6cbhDn-removebg-preview_720x.png?v=1627865848',
-          }}
-          style={styles.imageStyle}
-        />
-        {addedToCart && (
-          <View style={styles.addedToCartButton}>
-            <Text style={styles.addedToCartText}>Added to Cart</Text>
-          </View>
-        )}
-        <TouchableOpacity style={styles.expandButton}>
-          <Icon name="expand" size={25.0} color="gray" />
-        </TouchableOpacity>
-      </View>
+      <Swiper
+        style={styles.warpper}
+        dot={
+          <View
+            style={{
+              backgroundColor: 'rgba(255,255,255,.3)',
+              width: 10,
+              height: 10,
+              borderRadius: 7,
+              marginLeft: 7,
+              marginRight: 7,
+            }}
+          />
+        }
+        activeDot={
+          <View
+            style={{
+              backgroundColor: '#2c3e50',
+              width: 10,
+              height: 10,
+              borderRadius: 7,
+              marginLeft: 7,
+              marginRight: 7,
+            }}
+          />
+        }
+        paginationStyle={{
+          bottom: 20,
+        }}>
+          {JersyImage.map((item)=>{
+            return(
+              <View>
+          <Image
+            source={{
+              uri: item['img'],
+            }}
+            style={styles.imageStyle}
+          />
+          {addedToCart && (
+            <View style={styles.addedToCartButton}>
+              <Text style={styles.addedToCartText}>Added to Cart</Text>
+            </View>
+          )}
+          <TouchableOpacity style={styles.expandButton}>
+            <Icon name="expand" size={25.0} color="gray" />
+          </TouchableOpacity>
+        </View>
+            )
+          })}
+      </Swiper>
 
       <View style={styles.detailsConatiner}>
         <View style={styles.detailsSubContainer}>
@@ -78,7 +129,7 @@ export default function HomeScreen() {
         </View>
 
         <View style={styles.KitContiner}>
-          <Text style={styles.sizeText}>Kit   </Text>
+          <Text style={styles.sizeText}>Kit </Text>
           <Kit />
         </View>
 
@@ -214,9 +265,12 @@ const Kit = () => {
 };
 
 const styles = StyleSheet.create({
+  warpper: {
+    backgroundColor: '#ececec',
+  },
   conatiner: {
     backgroundColor: 'white',
-    height: heightScreen,
+    flex:1,
     width: widthScreen,
   },
   appBarContainer: {
@@ -251,12 +305,6 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
     resizeMode: 'contain',
-  },
-  imageContainer: {
-    backgroundColor: '#ecf0f1',
-    padding: 10.0,
-    height: heightScreen * 0.4,
-    width: '100%',
   },
   expandButton: {
     position: 'absolute',
