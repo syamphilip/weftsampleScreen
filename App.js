@@ -9,6 +9,8 @@ import Main from './Components/SettingScreen/Main';
 import HomeScreen from './Components/HomeScreen/HomeScreen';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import PayementAddressScreen from './Components/SettingScreen/MiddleListSection/PayementAddressScreen/PayementAddressScreen';
+import { Provider } from 'react-redux';
+import store from './Redux/Redux';
 
 const height = Dimensions.get('window').height;
 const width = Dimensions.get('window').width;
@@ -18,7 +20,8 @@ const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
-    <NavigationContainer>
+   <Provider store={store}>
+      <NavigationContainer>
       <Tab.Navigator screenOptions={{headerShown: false}}>
         <Tab.Screen
           name="HomeTab"
@@ -52,6 +55,7 @@ const App = () => {
         />
       </Tab.Navigator>
     </NavigationContainer>
+   </Provider>
   );
 };
 

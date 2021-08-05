@@ -11,13 +11,17 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Swiper from 'react-native-swiper';
+import store from '../../Redux/Redux';
+import {useSelector} from 'react-redux';
 
 const heightScreen = Dimensions.get('window').height;
 const widthScreen = Dimensions.get('window').width;
 
+
 export default function HomeScreen() {
-  const [cartCount, setcartCount] = useState(0);
   const [addedToCart, setaddedToCart] = useState(false);
+
+  const currentCartValue=useSelector(()=>store.getState())
 
   const [JersyImage, setJersyImage] = useState([
     {
@@ -35,12 +39,12 @@ export default function HomeScreen() {
   ]);
 
   useEffect(() => {
-    if (cartCount == 0) {
+    if (currentCartValue.value == 0) {
       setaddedToCart(false);
     } else {
       setaddedToCart(true);
     }
-  }, [cartCount]);
+  }, [currentCartValue.value]);
 
   return (
     <SafeAreaView style={styles.conatiner}>
@@ -54,11 +58,11 @@ export default function HomeScreen() {
         <TouchableOpacity>
           <Icon name="cart-plus" size={20} color="gray" />
           <View style={styles.cartRedDot}>
-            <Text style={styles.dotText}>{cartCount}</Text>
+            <Text style={styles.dotText}>{currentCartValue.value}</Text>
           </View>
         </TouchableOpacity>
       </View>
-
+      
       <Swiper
         style={styles.warpper}
         dot={
@@ -90,7 +94,7 @@ export default function HomeScreen() {
         }}>
           {JersyImage.map((item)=>{
             return(
-              <View>
+              <View key={item['key']}>
           <Image
             source={{
               uri: item['img'],
@@ -139,10 +143,10 @@ export default function HomeScreen() {
             <TouchableOpacity
               style={styles.Button}
               onPress={() => {
-                if (cartCount == 0) {
-                  setcartCount(0);
+                if (currentCartValue.value== 0) {
+                  store.dispatch({type :'zeroPoint'});
                 } else {
-                  setcartCount(cartCount - 1);
+                  store.dispatch({ type: 'decrement' });
                 }
               }}>
               <Text style={styles.qtyBtText}>-</Text>
@@ -150,13 +154,13 @@ export default function HomeScreen() {
             <View>
               <Text
                 style={{color: '#2c3e50', fontWeight: 'bold', fontSize: 20.0}}>
-                {cartCount}
+                {currentCartValue.value}
               </Text>
             </View>
             <TouchableOpacity
               style={styles.Button}
               onPress={() => {
-                setcartCount(cartCount + 1);
+                store.dispatch({ type: 'increment' });
                 setaddedToCart(true);
               }}>
               <Text style={styles.qtyBtText}>+</Text>
