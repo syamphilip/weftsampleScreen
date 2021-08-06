@@ -11,6 +11,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import PayementAddressScreen from './Components/SettingScreen/MiddleListSection/PayementAddressScreen/PayementAddressScreen';
 import { Provider } from 'react-redux';
 import store from './Redux/Redux';
+import LoginScreen from './LoginScreen/LoginScreen';
 
 const height = Dimensions.get('window').height;
 const width = Dimensions.get('window').width;
@@ -24,30 +25,30 @@ const App = () => {
       <NavigationContainer>
       <Tab.Navigator screenOptions={{headerShown: false}}>
         <Tab.Screen
-          name="HomeTab"
+          name="Home"
           component={HomeScreen}
           options={{
             tabBarIcon: () => <Icon name="home" size={20.0} color="gray" />,
           }}
         />
         <Tab.Screen
-          name="StatsticTab"
-          component={HomeScreen}
+          name="Login"
+          component={LoginScreen}
           options={{
             tabBarIcon: () => (
-              <Icon name="chart-pie" size={20.0} color="gray" />
+              <Icon name="user" size={20.0} color="gray" />
             ),
           }}
         />
         <Tab.Screen
-          name="HistorTab"
+          name="Histor"
           component={HomeScreen}
           options={{
             tabBarIcon: () => <Icon name="history" size={20.0} color="gray" />,
           }}
         />
         <Tab.Screen
-          name="SettingsTab"
+          name="Settings"
           component={StackNavigator}
           options={{
             tabBarIcon: () => <Icon name="cogs" size={20.0} color="gray" />,

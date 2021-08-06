@@ -14,15 +14,14 @@ import Swiper from 'react-native-swiper';
 import store from '../../Redux/Redux';
 import {useSelector} from 'react-redux';
 
-const heightScreen = Dimensions.get('window').height;
 const widthScreen = Dimensions.get('window').width;
 
 
 export default function HomeScreen() {
   const [addedToCart, setaddedToCart] = useState(false);
 
-  const currentCartValue=useSelector(()=>store.getState())
-
+  const currentCartValue=useSelector((state)=>state.Reducer1)
+  
   const [JersyImage, setJersyImage] = useState([
     {
       key: 1,
@@ -160,7 +159,7 @@ export default function HomeScreen() {
             <TouchableOpacity
               style={styles.Button}
               onPress={() => {
-                store.dispatch({ type: 'increment' });
+                store.dispatch({type:'increment'});
                 setaddedToCart(true);
               }}>
               <Text style={styles.qtyBtText}>+</Text>
