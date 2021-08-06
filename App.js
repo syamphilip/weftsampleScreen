@@ -26,7 +26,7 @@ const App = () => {
       <Tab.Navigator screenOptions={{headerShown: false}}>
         <Tab.Screen
           name="Home"
-          component={HomeScreen}
+          component={LoginScreen}
           options={{
             tabBarIcon: () => <Icon name="home" size={20.0} color="gray" />,
           }}
@@ -42,7 +42,7 @@ const App = () => {
         />
         <Tab.Screen
           name="Histor"
-          component={HomeScreen}
+          component={LoginScreen}
           options={{
             tabBarIcon: () => <Icon name="history" size={20.0} color="gray" />,
           }}
