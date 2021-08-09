@@ -6,31 +6,64 @@ import {
   TextInput,
   Picker,
   TouchableOpacity,
-  ScrollView
+  ScrollView,
 } from 'react-native';
+import {useSelector} from 'react-redux';
 import Form from './Form';
+import store from '../../../../../../Redux/Redux';
+import {useNavigation} from '@react-navigation/native';
 
 export default function UserAddressForm() {
+  const [Name, setName] = useState(null);
+  const [Phone, setPhone] = useState(null);
+  const [Email, setEmail] = useState(null);
+  const [Address, setAddress] = useState(null);
+  const [City, setCity] = useState(null);
+  const [DefaultAddress, setDefaultAddress] = useState(false);
+
+  const state = useSelector(state => state.AddressReducer2);
+
+  const navigation = useNavigation();
+
+  const AddressSetter = (Name, Phone, Email, Address, City) => {
+    setName(Name);
+    setPhone(Phone);
+    setEmail(Email);
+    setAddress(Address);
+    setCity(City);
+  };
+  
+  const StoreAndNavigate=()=>{
+    store.dispatch({
+      type: 'ADD_ADDRESS',
+      payload: {Name, Phone, Email, Address, City},
+    })
+    navigation.navigate("PaymentScreen");
+  }
   return (
     <ScrollView>
       <View style={styles.mainConatiner}>
-      <View style={styles.textContainer}>
-        <Text style={styles.contactDetailsText}>Contact Details</Text>
-      </View>
-      <View style={styles.formContainer}>
-        <Form />
-        <View style={styles.defaultContainer}>
-          <DefaultButton />
-          <Text style={styles.defaultText}>Make as default address</Text>
+        <View style={styles.textContainer}>
+          <Text style={styles.contactDetailsText}>Contact Details</Text>
         </View>
-      </View>
+        <View style={styles.formContainer}>
+          <Form AddressSetter={AddressSetter} />
+          <View style={styles.defaultContainer}>
+            <DefaultButton />
+            <Text style={styles.defaultText}>Make as default address</Text>
+          </View>
+        </View>
 
-      <View style={styles.buttonContainer}>
-        <View style={styles.button}>
-          <Text style={styles.continueText}>Continue</Text>
-        </View>
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={() =>
+            StoreAndNavigate()
+          }>
+          <View style={styles.button}>
+            <Text style={styles.continueText}>Continue</Text>
+          </View>
+        </TouchableOpacity>
       </View>
-    </View>
     </ScrollView>
   );
 }
@@ -73,7 +106,7 @@ const styles = StyleSheet.create({
     marginVertical: 30.0,
     justifyContent: 'space-between',
   },
-  
+
   button: {
     backgroundColor: 'blue',
     padding: 8.0,
@@ -110,7 +143,7 @@ const styles = StyleSheet.create({
   defaultContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical:10.0
+    marginVertical: 10.0,
   },
   defaultText: {
     fontSize: 13.0,

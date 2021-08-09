@@ -12,6 +12,9 @@ import PayementAddressScreen from './Components/SettingScreen/MiddleListSection/
 import { Provider } from 'react-redux';
 import store from './Redux/Redux';
 import LoginScreen from './LoginScreen/LoginScreen';
+import CartScreen from './Components/CartScreen/CartScreen';
+import main from './Components/SettingScreen/Main';
+import PaymentScreen from './Components/PaymentScreen/PaymentScreen';
 
 const height = Dimensions.get('window').height;
 const width = Dimensions.get('window').width;
@@ -23,7 +26,24 @@ const App = () => {
   return (
    <Provider store={store}>
       <NavigationContainer>
-      <Tab.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Screen name="Tab" component={TabNavigator} />
+      <Stack.Screen name="SettingsScreen" component={Main} />
+      <Stack.Screen
+        name="PaymentAddressScreen"
+        component={PayementAddressScreen}
+      />
+      <Stack.Screen name="CartScreen" component={CartScreen}/>
+      <Stack.Screen name="PaymentScreen" component={PaymentScreen}/>
+    </Stack.Navigator>
+    </NavigationContainer>
+   </Provider>
+  );
+};
+
+const TabNavigator = () => {
+  return (
+    <Tab.Navigator screenOptions={{headerShown: false}}>
         <Tab.Screen
           name="Home"
           component={LoginScreen}
@@ -49,27 +69,16 @@ const App = () => {
         />
         <Tab.Screen
           name="Settings"
-          component={StackNavigator}
+          component={main}
           options={{
             tabBarIcon: () => <Icon name="cogs" size={20.0} color="gray" />,
           }}
         />
       </Tab.Navigator>
-    </NavigationContainer>
-   </Provider>
-  );
-};
-
-const StackNavigator = () => {
-  return (
-    <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="SettingsScreen" component={Main} />
-      <Stack.Screen
-        name="PaymentAddressScreen"
-        component={PayementAddressScreen}
-      />
-    </Stack.Navigator>
+    
   );
 };
 
 export default App;
+
+

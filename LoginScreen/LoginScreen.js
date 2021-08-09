@@ -13,6 +13,7 @@ import toggleLogin from '../Redux/actionCreator';
 import store from '../Redux/Redux';
 
 import HomeScreen from '../Components/HomeScreen/HomeScreen';
+import CartScreen from '../Components/CartScreen/CartScreen';
 
 const windowHeight = Dimensions.get('window').height;
 
@@ -24,7 +25,7 @@ export default function LoginScreen({}) {
   const StorePassword = useSelector(state => state.Reducer1.password);
 
   if (useSelector(state => state.Reducer1.isLoggedIn)) {
-    return <HomeScreen />;
+    return <HomeScreen/>;
   } else
     return (
       <View style={styles.mainConatiner}>

@@ -13,27 +13,36 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import Swiper from 'react-native-swiper';
 import store from '../../Redux/Redux';
 import {useSelector} from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 
 const widthScreen = Dimensions.get('window').width;
 
+let currentproducatName = 'FRANCE AUTHENTIC HOME JERSEY 2018';
+let currentproductImage = null;
+let currentPrice = 165;
+let currentSize = null;
 
 export default function HomeScreen() {
   const [addedToCart, setaddedToCart] = useState(false);
 
-  const currentCartValue=useSelector((state)=>state.Reducer1)
-  
+  const [SelectedItems, setSelectedItems] = useState([]);
+
+  const currentCartValue = useSelector(state => state.Reducer1);
+
+  const navigation=useNavigation();
+
   const [JersyImage, setJersyImage] = useState([
     {
       key: 1,
-      img:'https://cdn.shopify.com/s/files/1/0333/3029/8924/products/brazil-2020-stadium-away-football-shirt-6cbhDn-removebg-preview_720x.png?v=1627865848',
+      img: 'https://cdn.shopify.com/s/files/1/0333/3029/8924/products/brazil-2020-stadium-away-football-shirt-6cbhDn-removebg-preview_720x.png?v=1627865848',
     },
     {
       key: 2,
-      img:'https://cdn.shopify.com/s/files/1/0333/3029/8924/products/brazil-2020-stadium-away-football-shirt-6cbhDn-removebg-preview_720x.png?v=1627865848',
+      img: 'https://cdn.shopify.com/s/files/1/0333/3029/8924/products/brazil-2020-stadium-away-football-shirt-6cbhDn-removebg-preview_720x.png?v=1627865848',
     },
     {
       key: 3,
-      img:'https://cdn.shopify.com/s/files/1/0333/3029/8924/products/brazil-2020-stadium-away-football-shirt-6cbhDn-removebg-preview_720x.png?v=1627865848',
+      img: 'https://cdn.shopify.com/s/files/1/0333/3029/8924/products/brazil-2020-stadium-away-football-shirt-6cbhDn-removebg-preview_720x.png?v=1627865848',
     },
   ]);
 
@@ -43,7 +52,16 @@ export default function HomeScreen() {
     } else {
       setaddedToCart(true);
     }
+    setSelectedItems([{
+      image: currentproductImage,
+      name: currentproducatName,
+      size: currentSize,
+      price: currentPrice,
+      qty: currentCartValue.value,
+    }])
+    console.log(SelectedItems);
   }, [currentCartValue.value]);
+
 
   return (
     <SafeAreaView style={styles.conatiner}>
@@ -61,7 +79,7 @@ export default function HomeScreen() {
           </View>
         </TouchableOpacity>
       </View>
-      
+
       <Swiper
         style={styles.warpper}
         dot={
@@ -91,26 +109,27 @@ export default function HomeScreen() {
         paginationStyle={{
           bottom: 20,
         }}>
-          {JersyImage.map((item)=>{
-            return(
-              <View key={item['key']}>
-          <Image
-            source={{
-              uri: item['img'],
-            }}
-            style={styles.imageStyle}
-          />
-          {addedToCart && (
-            <View style={styles.addedToCartButton}>
-              <Text style={styles.addedToCartText}>Added to Cart</Text>
+        {JersyImage.map(item => {
+          currentproductImage = item['img'];
+          return (
+            <View key={item['key']}>
+              <Image
+                source={{
+                  uri: item['img'],
+                }}
+                style={styles.imageStyle}
+              />
+              {addedToCart && (
+                <View style={styles.addedToCartButton}>
+                  <Text style={styles.addedToCartText}>Added to Cart</Text>
+                </View>
+              )}
+              <TouchableOpacity style={styles.expandButton}>
+                <Icon name="expand" size={25.0} color="gray" />
+              </TouchableOpacity>
             </View>
-          )}
-          <TouchableOpacity style={styles.expandButton}>
-            <Icon name="expand" size={25.0} color="gray" />
-          </TouchableOpacity>
-        </View>
-            )
-          })}
+          );
+        })}
       </Swiper>
 
       <View style={styles.detailsConatiner}>
@@ -142,10 +161,10 @@ export default function HomeScreen() {
             <TouchableOpacity
               style={styles.Button}
               onPress={() => {
-                if (currentCartValue.value== 0) {
-                  store.dispatch({type :'zeroPoint'});
+                if (currentCartValue.value == 0) {
+                  store.dispatch({type: 'zeroPoint'});
                 } else {
-                  store.dispatch({ type: 'decrement' });
+                  store.dispatch({type: 'decrement'});
                 }
               }}>
               <Text style={styles.qtyBtText}>-</Text>
@@ -159,13 +178,26 @@ export default function HomeScreen() {
             <TouchableOpacity
               style={styles.Button}
               onPress={() => {
-                store.dispatch({type:'increment'});
+                store.dispatch({type: 'increment'});
                 setaddedToCart(true);
               }}>
               <Text style={styles.qtyBtText}>+</Text>
             </TouchableOpacity>
           </View>
         </View>
+
+        <TouchableOpacity
+          style={styles.checkOutButton}
+          onPress={() => {
+            try{
+              navigation.navigate("CartScreen",{text:SelectedItems})
+              }
+            catch{
+              console.log('error');
+            }
+          }}>
+          <Text style={styles.checkOutButtonText}>Check Out</Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
@@ -198,11 +230,14 @@ const SizeList = () => {
                     (Size[currentSelectedSize]['isSelected'] = false),
                   );
                   setcurrentSelectedSize(item['key']);
+                  currentSize = item['size'];
+                  console.log(currentSize);
                 }}>
                 <Text>{item['size']}</Text>
               </TouchableOpacity>
             );
           } else if (item['available'] && item['isSelected']) {
+            currentSize = item['size'];
             return (
               <View
                 style={styles.MeasurementContainerSelected}
@@ -235,7 +270,13 @@ const Kit = () => {
   ]);
 
   return (
-    <View style={{flexDirection: 'row', justifyContent: 'flex-start', flex: 1,marginLeft:8.0}}>
+    <View
+      style={{
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        flex: 1,
+        marginLeft: 8.0,
+      }}>
       {KitItems.map(item => {
         if (item['isSelected']) {
           return (
@@ -273,7 +314,7 @@ const styles = StyleSheet.create({
   },
   conatiner: {
     backgroundColor: 'white',
-    flex:1,
+    flex: 1,
     width: widthScreen,
   },
   appBarContainer: {
@@ -446,5 +487,18 @@ const styles = StyleSheet.create({
   qtyBtText: {
     fontWeight: 'bold',
     fontSize: 25.0,
+  },
+  checkOutButton: {
+    backgroundColor: '#2c3e50',
+    maxWidth: 100.0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 8.0,
+    marginVertical: 20.0,
+    borderRadius: 5.0,
+  },
+  checkOutButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
   },
 });

@@ -1,7 +1,10 @@
 import React, { useState ,useEffect} from 'react'
 import { View,Text,TextInput,StyleSheet,Picker} from 'react-native'
+//import {useSelector} from 'react-redux';
+//import store from '../../../../../../Redux/Redux'
 
-export default function Form() {
+export default function Form(props) {
+
   const [Name, setName] = useState("")
   const [ValidName, setValidName] = useState(false)
 
@@ -16,6 +19,13 @@ export default function Form() {
 
   const [City, setCity] = useState("")
   const [validCity, setvalidCity] = useState(false)
+
+  //const state = useSelector(state => state.AddressReducer);
+  //console.log(state);
+
+  useEffect(() => {
+    props.AddressSetter(Name,Phone,Email,Address,City)
+  }, [City])
 
   const nameValidator=()=>{
     if(Name==""){
@@ -82,7 +92,7 @@ export default function Form() {
           </Picker>
         </View>
         {validCity && <Text style={{color:'red'}}>Enter a valid City</Text>}
-        <TextInput style={styles.textInput} placeholder="City*" onChangeText={(text)=>setName(text)} onEndEditing={()=>cityValidator()}/>
+        <TextInput style={styles.textInput} placeholder="City*" onChangeText={(text)=>setCity(text)} onEndEditing={()=>cityValidator()}/>
         </View>
     )
 }
