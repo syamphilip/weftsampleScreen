@@ -8,7 +8,7 @@ export default function AppBar() {
   return (
     <View style={styles.appBarContainer}>
       <TouchableOpacity onPress={() => navigation.goBack()}>
-        <Icon name="arrow-left" color="gray" size={17} />
+        <Icon name="arrow-left" color="black" size={17} />
       </TouchableOpacity>
       <Text style={styles.appBarText}>Add new address</Text>
     </View>

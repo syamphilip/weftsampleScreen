@@ -25,28 +25,13 @@ const Stack = createNativeStackNavigator();
 const App = () => {
   return (
    <Provider store={store}>
+     
       <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerShown: false}}>
-        <Stack.Screen name="Tab" component={TabNavigator} />
-      <Stack.Screen name="SettingsScreen" component={Main} />
-      <Stack.Screen
-        name="PaymentAddressScreen"
-        component={PayementAddressScreen}
-      />
-      <Stack.Screen name="CartScreen" component={CartScreen}/>
-      <Stack.Screen name="PaymentScreen" component={PaymentScreen}/>
-    </Stack.Navigator>
-    </NavigationContainer>
-   </Provider>
-  );
-};
 
-const TabNavigator = () => {
-  return (
-    <Tab.Navigator screenOptions={{headerShown: false}}>
+      <Tab.Navigator screenOptions={{headerShown: false}}>
         <Tab.Screen
           name="Home"
-          component={LoginScreen}
+          component={StackNavigator}
           options={{
             tabBarIcon: () => <Icon name="home" size={20.0} color="gray" />,
           }}
@@ -75,7 +60,24 @@ const TabNavigator = () => {
           }}
         />
       </Tab.Navigator>
-    
+      
+    </NavigationContainer>
+   </Provider>
+  );
+};
+
+const StackNavigator = () => {
+  return (
+    <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Screen name="HomeScreen" component={HomeScreen} />
+      <Stack.Screen name="SettingsScreen" component={Main} />
+      <Stack.Screen
+        name="PaymentAddressScreen"
+        component={PayementAddressScreen}
+      />
+      <Stack.Screen name="CartScreen" component={CartScreen}/>
+      <Stack.Screen name="PaymentScreen" component={PaymentScreen}/>
+    </Stack.Navigator>
   );
 };
 

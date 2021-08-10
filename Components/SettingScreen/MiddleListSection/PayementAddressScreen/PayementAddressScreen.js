@@ -5,7 +5,7 @@ import ContactDetailsSteps from './Components/ContactDetailsSteps/ContactDetails
 import UserAddressForm from './Components/UserAddressForm/UserAddressForm';
 
 export default function PayementAddressScreen() {
-  return(<View style={{flex:1}}>
+  return(<View style={{flex:1,height:'100%',backgroundColor:'white',width:"100%"}}>
     <AppBar/>
     <ContactDetailsSteps/>
     <UserAddressForm/>

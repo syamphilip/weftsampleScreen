@@ -7,6 +7,7 @@ import {
   Picker,
   TouchableOpacity,
   ScrollView,
+  Alert,
 } from 'react-native';
 import {useSelector} from 'react-redux';
 import Form from './Form';
@@ -19,27 +20,39 @@ export default function UserAddressForm() {
   const [Email, setEmail] = useState(null);
   const [Address, setAddress] = useState(null);
   const [City, setCity] = useState(null);
+  const [ValidForm, setValidForm] = useState(false)
   const [DefaultAddress, setDefaultAddress] = useState(false);
 
   const state = useSelector(state => state.AddressReducer2);
 
   const navigation = useNavigation();
 
-  const AddressSetter = (Name, Phone, Email, Address, City) => {
+  const AddressSetter = (Name, Phone, Email, Address, City,ValidForm) => {
     setName(Name);
     setPhone(Phone);
     setEmail(Email);
     setAddress(Address);
     setCity(City);
+    setValidForm(ValidForm);
   };
   
+  React.useEffect(() => {
+    console.log(ValidForm);
+  }, [ValidForm]);
+
   const StoreAndNavigate=()=>{
-    store.dispatch({
-      type: 'ADD_ADDRESS',
-      payload: {Name, Phone, Email, Address, City},
-    })
-    navigation.navigate("PaymentScreen");
+    if(ValidForm){
+      store.dispatch({
+        type: 'ADD_ADDRESS',
+        payload: {Name, Phone, Email, Address, City},
+      })
+      navigation.navigate("PaymentScreen");
+    }
+    else{
+      return Alert.alert("Missing Filed","Enter all Data")
+    }
   }
+
   return (
     <ScrollView>
       <View style={styles.mainConatiner}>
@@ -92,6 +105,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20.0,
     paddingVertical: 10.0,
     backgroundColor: 'white',
+    height:'100%'
   },
 
   textContainer: {
@@ -103,12 +117,12 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   formContainer: {
-    marginVertical: 30.0,
-    justifyContent: 'space-between',
+    marginVertical: 20.0,
+    justifyContent: 'space-around',
   },
 
   button: {
-    backgroundColor: 'blue',
+    backgroundColor: '#2c3e50',
     padding: 8.0,
     width: '100%',
     justifyContent: 'center',
@@ -143,7 +157,7 @@ const styles = StyleSheet.create({
   defaultContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 10.0,
+    
   },
   defaultText: {
     fontSize: 13.0,

@@ -1,5 +1,5 @@
-import { useNavigation} from '@react-navigation/native';
-import React,{useEffect,useState} from 'react';
+import {useNavigation} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -15,79 +15,99 @@ const widthScreen = Dimensions.get('window').width;
 const heightScreen = Dimensions.get('window').height;
 
 function CartScreen({route}) {
+  const naviagtion = useNavigation();
 
-    const naviagtion=useNavigation();
+  const [Item, setItem] = useState(route.params.text);
 
-    useEffect(() => {
-        console.log(route.params.text);
-    }, [])
+  useEffect(() => {
+    console.log(route.params.text);
+  }, []);
+
+  const handleDeleteItem = qty => {
+    //setItem({...Item, qty: qty});
+  };
 
   return (
     <SafeAreaView style={styles.container}>
-      <View
-        style={{
-          width: widthScreen,
-          height: heightScreen * 0.9,
-          padding: 15.0,
-          borderBottomLeftRadius: 15.0,
-          borderBottomRightRadius: 15.0,
-          backgroundColor: 'white',
-        }}>
-        <View style={styles.appBarContainer}>
-          <TouchableOpacity onPress={()=>naviagtion.goBack()}>
-            <Icon name="arrow-left" size={20} color="black" />
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Icon name="cart-plus" size={20} color="black" />
-            <View style={styles.cartRedDot}>
-              <Text style={styles.dotText}>{route.params.text[0].qty}</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.myCartContainer}>
-          <Text style={styles.myCartText}>My Cart</Text>
-          <Text style={styles.itemText}>{route.params.text.length} items</Text>
-        </View>
-
-        <View style={styles.itemContainer}>
-          <View>
-            <Image
-              source={{
-                uri:route.params.text[0].image,
-              }}
-              style={styles.imageStyle}
-            />
+        <View
+          style={{
+            width: widthScreen,
+            height: heightScreen * 0.8,
+            padding: 15.0,
+            borderBottomLeftRadius: 15.0,
+            borderBottomRightRadius: 15.0,
+            backgroundColor: 'white',
+          }}>
+          <View style={styles.appBarContainer}>
+            <TouchableOpacity onPress={() => naviagtion.navigate('HomeScreen')}>
+              <Icon name="arrow-left" size={20} color="black" />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Icon name="cart-plus" size={20} color="black" />
+              <View style={styles.cartRedDot}>
+                {Item[0] ? (
+                  <Text style={styles.dotText}>{Item[0].qty}</Text>
+                ) : (
+                  <Text></Text>
+                )}
+              </View>
+            </TouchableOpacity>
           </View>
 
-          <View style={styles.itemDetails}>
-            <Text style={styles.itemName}>{route.params.text[0].name}</Text>
-            <Text style={styles.priceText}>${route.params.text[0].price}</Text>
+          <View style={styles.myCartContainer}>
+            <Text style={styles.myCartText}>My Cart</Text>
+            <Text style={styles.itemText}>{Item.length} items</Text>
+          </View>
+
+          <View style={styles.itemContainer}>
             <View>
-              <Text style={styles.otherText}>Size : {route.params.text[0].size}</Text>
-              <Text style={styles.otherText}>Quantity : {route.params.text[0].qty}</Text>
+              {Item[0] ? (
+                <Image
+                  source={{
+                    uri: Item[0].image,
+                  }}
+                  style={styles.imageStyle}
+                />
+              ) : null}
             </View>
+
+            <View style={styles.itemDetails}>
+              <Text style={styles.itemName}>{Item[0].name}</Text>
+              <Text style={styles.priceText}>${Item[0].price}</Text>
+              <View>
+                <Text style={styles.otherText}>Size : {Item[0].size}</Text>
+                <Text style={styles.otherText}>Quantity : {Item[0].qty}</Text>
+              </View>
+            </View>
+
+            <TouchableOpacity
+              style={styles.crossButton}
+              onPress={() => handleDeleteItem(0)}>
+              <Text style={{fontWeight: 'bold'}}>X</Text>
+            </TouchableOpacity>
           </View>
 
-          <TouchableOpacity style={styles.crossButton}>
-            <Text style={{fontWeight: 'bold'}}>X</Text>
-          </TouchableOpacity>
-        </View>
+          <View style={styles.deliveryContent}>
+            <Text style={styles.deliveryText}>
+              Delivery : All orders of $50 or more qualify for FREE delivery
+            </Text>
+          </View>
 
-        <View style={styles.deliveryContent}>
-            <Text style={styles.deliveryText}>Delivery : All orders of $50 or more qualify for FREE delivery</Text>
-        </View>
-
-        <View style={styles.totalPriceContainer}>
+          <View style={styles.totalPriceContainer}>
             <Text style={styles.totalText}>Total :</Text>
-            <Text style={styles.totalPriceText}>${route.params.text[0].price*route.params.text[0].qty}</Text>
+            <Text style={styles.totalPriceText}>
+              ${Item[0].price * Item[0].qty}
+            </Text>
+          </View>
         </View>
 
-      </View>
-
-      <TouchableOpacity style={styles.checkOutButton} onPress={()=>{naviagtion.navigate("PaymentAddressScreen")}}>
-        <Text style={styles.checkOutText}>CHECKOUT</Text>
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.checkOutButton}
+          onPress={() => {
+            naviagtion.navigate('PaymentAddressScreen');
+          }}>
+          <Text style={styles.checkOutText}>CHECKOUT</Text>
+        </TouchableOpacity>
     </SafeAreaView>
   );
 }
@@ -144,7 +164,7 @@ const styles = StyleSheet.create({
   itemDetails: {
     margin: 20.0,
     justifyContent: 'space-between',
-    flex:1
+    flex: 1,
   },
   itemName: {
     fontSize: 20.0,
@@ -167,35 +187,35 @@ const styles = StyleSheet.create({
   checkOutButton: {
     flex: 1,
     backgroundColor: '#2c3e50',
-    justifyContent:'center',
-    alignItems:'center',
-    width:widthScreen
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: widthScreen,
   },
-  checkOutText:{
-      fontWeight:'bold',
-      fontSize:20.0,
-      color:'white'
+  checkOutText: {
+    fontWeight: 'bold',
+    fontSize: 20.0,
+    color: 'white',
   },
-  deliveryContent:{
-      borderColor:'#e0e0e0',
-      paddingVertical:10.0,
-      borderTopWidth:0.5,
+  deliveryContent: {
+    borderColor: '#e0e0e0',
+    paddingVertical: 10.0,
+    borderTopWidth: 0.5,
   },
-  deliveryText:{
-      fontWeight:'bold'
+  deliveryText: {
+    fontWeight: 'bold',
   },
-  totalPriceContainer:{
-      justifyContent:'space-between',
-      marginVertical:20.0,
-      flexDirection:'row'
+  totalPriceContainer: {
+    justifyContent: 'space-between',
+    marginVertical: 20.0,
+    flexDirection: 'row',
   },
-  totalText:{
-      fontSize:20.0
+  totalText: {
+    fontSize: 20.0,
   },
-  totalPriceText:{
-      fontWeight:'bold',
-      fontSize:20.0
-  }
+  totalPriceText: {
+    fontWeight: 'bold',
+    fontSize: 20.0,
+  },
 });
 
 export default CartScreen;

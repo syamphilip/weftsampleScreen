@@ -13,23 +13,25 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import Swiper from 'react-native-swiper';
 import store from '../../Redux/Redux';
 import {useSelector} from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
 const widthScreen = Dimensions.get('window').width;
 
 let currentproducatName = 'FRANCE AUTHENTIC HOME JERSEY 2018';
 let currentproductImage = null;
 let currentPrice = 165;
-let currentSize = null;
+
 
 export default function HomeScreen() {
   const [addedToCart, setaddedToCart] = useState(false);
 
   const [SelectedItems, setSelectedItems] = useState([]);
 
+  const [SelectedSize, setSelectedSize] = useState(null);
+
   const currentCartValue = useSelector(state => state.Reducer1);
 
-  const navigation=useNavigation();
+  const navigation = useNavigation();
 
   const [JersyImage, setJersyImage] = useState([
     {
@@ -46,22 +48,29 @@ export default function HomeScreen() {
     },
   ]);
 
+  const handleSizeUpdate=(value)=>{
+    setSelectedSize(value);
+  }
+
+
+
   useEffect(() => {
     if (currentCartValue.value == 0) {
       setaddedToCart(false);
     } else {
       setaddedToCart(true);
     }
-    setSelectedItems([{
-      image: currentproductImage,
-      name: currentproducatName,
-      size: currentSize,
-      price: currentPrice,
-      qty: currentCartValue.value,
-    }])
-    console.log(SelectedItems);
-  }, [currentCartValue.value]);
 
+    setSelectedItems([
+      {
+        image: currentproductImage,
+        name: currentproducatName,
+        size: SelectedSize,
+        price: currentPrice,
+        qty: currentCartValue.value,
+      },
+    ]);
+  }, [currentCartValue.value,SelectedSize]);
 
   return (
     <SafeAreaView style={styles.conatiner}>
@@ -147,7 +156,7 @@ export default function HomeScreen() {
       <View style={styles.categoryConatiner}>
         <View style={styles.sizeContiner}>
           <Text style={styles.sizeText}>Size</Text>
-          <SizeList />
+          <SizeList updateSize={handleSizeUpdate}/>
         </View>
 
         <View style={styles.KitContiner}>
@@ -189,10 +198,10 @@ export default function HomeScreen() {
         <TouchableOpacity
           style={styles.checkOutButton}
           onPress={() => {
-            try{
-              navigation.navigate("CartScreen",{text:SelectedItems})
-              }
-            catch{
+            try {
+              navigation.navigate('CartScreen', {text:SelectedItems});
+              console.log(SelectedItems);
+            } catch {
               console.log('error');
             }
           }}>
@@ -203,7 +212,7 @@ export default function HomeScreen() {
   );
 }
 
-const SizeList = () => {
+const SizeList = (props) => {
   const [Size, setSize] = useState([
     {key: 0, size: 'S', available: false, isSelected: false},
     {key: 1, size: 'M', available: true, isSelected: true},
@@ -230,14 +239,13 @@ const SizeList = () => {
                     (Size[currentSelectedSize]['isSelected'] = false),
                   );
                   setcurrentSelectedSize(item['key']);
-                  currentSize = item['size'];
-                  console.log(currentSize);
+                  props.updateSize(item['size']);
                 }}>
                 <Text>{item['size']}</Text>
               </TouchableOpacity>
             );
           } else if (item['available'] && item['isSelected']) {
-            currentSize = item['size'];
+            props.updateSize(item['size']);
             return (
               <View
                 style={styles.MeasurementContainerSelected}
