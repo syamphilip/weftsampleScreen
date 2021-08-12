@@ -75,13 +75,13 @@ export default function HomeScreen() {
   return (
     <SafeAreaView style={styles.conatiner}>
       <View style={styles.appBarContainer}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=>navigation.toggleDrawer()}>
           <Icon name="bars" size={20} color="gray" />
         </TouchableOpacity>
         <View>
           <Text style={styles.appBarText}>FIFA World Cup Kits</Text>
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=>navigation.navigate('CartScreen',{text:SelectedItems})}>
           <Icon name="cart-plus" size={20} color="gray" />
           <View style={styles.cartRedDot}>
             <Text style={styles.dotText}>{currentCartValue.value}</Text>

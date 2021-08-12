@@ -17,7 +17,7 @@ export default function main() {
 
 const styles=StyleSheet.create({
     mainContainer:{
-      backgroundColor:"blue",
+      backgroundColor:"#2c3e50",
       width:width,
       height:height,
     }

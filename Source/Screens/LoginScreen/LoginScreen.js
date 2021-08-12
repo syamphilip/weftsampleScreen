@@ -9,11 +9,11 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {useSelector} from 'react-redux';
-import toggleLogin from '../Redux/actionCreator';
-import store from '../Redux/Redux';
+import toggleLogin from '../../Redux/actionCreator';
+import store from '../../Redux/Redux';
 
-import HomeScreen from '../Components/HomeScreen/HomeScreen';
-import CartScreen from '../Components/CartScreen/CartScreen';
+import HomeScreen from '../HomeScreen/HomeScreen';
+import CartScreen from '../CartScreen/CartScreen';
 
 const windowHeight = Dimensions.get('window').height;
 

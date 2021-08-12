@@ -2,43 +2,58 @@ import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import toggleLogin from '../../../Redux/actionCreator';
+import store from '../../../Redux/Redux';
 
-const SettingsList = [
-  {
-    icon: <Icon name="toolbox" size={20} style={{color: 'black'}} />,
-    name: 'Account Settings',
-    label: '',
-  },
-  {
-    icon: <Icon name="globe" size={20} style={{color: 'black'}} />,
-    name: 'Language',
-    label: 'English',
-  },
-  {
-    icon: <Icon name="user-plus" size={18} style={{color: 'black'}} />,
-    name: 'Invite Friends',
-    label: '',
-  },
-  {
-    icon: <Icon name="phone-alt" size={20} style={{color: 'black'}} />,
-    name: 'Support',
-    label: '',
-  },
-  {
-    icon: <Icon name="shield-alt" size={20} style={{color: 'black'}} />,
-    name: 'Privacy & Security',
-    label: '',
-  },
-];
 
 
 
 export default function MiddleListSection() {
   const navigation=useNavigation();
+
+  const SettingsList = [
+    {
+      icon: <Icon name="toolbox" size={20} style={{color: 'black'}} />,
+      name: 'Address Settings',
+      label: '',
+      goto:()=>navigation.navigate("PaymentAddressScreen")
+    },
+    {
+      icon: <Icon name="globe" size={20} style={{color: 'black'}} />,
+      name: 'Language',
+      label: 'English',
+      goto:()=>navigation.navigate("PaymentAddressScreen")
+    },
+    {
+      icon: <Icon name="clipboard-check" size={18} style={{color: 'black'}} />,
+      name: 'Todo',
+      label: '',
+      goto:()=>navigation.navigate("TodoScreen")
+    },
+    {
+      icon: <Icon name="phone-alt" size={20} style={{color: 'black'}} />,
+      name: 'Support',
+      label: '',
+      goto:()=>navigation.navigate("PaymentAddressScreen")
+    },
+    {
+      icon: <Icon name="shield-alt" size={20} style={{color: 'black'}} />,
+      name: 'Privacy & Security',
+      label: '',
+      goto:()=>navigation.navigate("PaymentAddressScreen")
+    },
+    {
+      icon: <Icon name="sign-out-alt" size={20} style={{color: 'black'}} />,
+      name: 'Log out',
+      label: '',
+      goto:()=>store.dispatch(toggleLogin())
+    },
+  ];
+
   return (
     <View style={styles.mainContainer}>
       {SettingsList.map(item => (
-          <TouchableOpacity key={item['name']} onPress={()=>navigation.navigate("PaymentAddressScreen")}>
+          <TouchableOpacity key={item['name']} onPress={item['goto']}>
             <View style={styles.listTiles} >
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
               <View style={styles.iconBackground}>{item['icon']}</View>
