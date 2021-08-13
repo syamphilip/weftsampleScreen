@@ -26,7 +26,7 @@ const PaymentMethods = [
     name: 'Apple Pay',
   },
   {
-    logo: 'https://lh3.googleusercontent.com/proxy/-u0x0p7O5WpGI89ZC6uNcWXBNDyxouDmLRZ70MdtD7TSNJ_swmvZfVrLOykpSK7_4aFdoCaGzeBNQnVIyRONNieVrjO2gNfOiTMosRVEpp6Z8XYXeB6pEeWWwjNJnYPaOfi2',
+    logo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqmTmFkIx7IuKVFp_gQf078Eueri4ksA2-4ZKvfE_htli_5ohff4EQJHjfgo3CpwYoD8g&usqp=CAU',
     name: 'VISA',
   },
   {
@@ -101,7 +101,7 @@ function PaymentScreen() {
             {PaymentMethods.map(item => {
               return (
                 <View key={item['name']}>
-                  <TouchableOpacity style={styles.paymentListContainer}>
+                  <TouchableOpacity style={styles.paymentListContainer} onPress={()=>navigation.navigate('OrderPlacedScreen')}>
                     <Image
                       source={{uri: item['logo']}}
                       style={styles.logoStyle}
@@ -115,7 +115,7 @@ function PaymentScreen() {
           </ScrollView>
         </View>
       </View>
-      <TouchableOpacity style={styles.confirmContiner}>
+      <TouchableOpacity style={styles.confirmContiner} onPress={()=>navigation.navigate('OrderPlacedScreen')}>
         <Text style={styles.confirmFont}>CONFIRM</Text>
       </TouchableOpacity>
     </SafeAreaView>

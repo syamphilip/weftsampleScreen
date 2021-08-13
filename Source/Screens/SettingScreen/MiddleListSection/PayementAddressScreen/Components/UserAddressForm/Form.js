@@ -19,17 +19,10 @@ export default function Form(props) {
   const [City, setCity] = useState('');
   const [validCity, setvalidCity] = useState(false);
 
-  //const state = useSelector(state => state.AddressReducer);
-  //console.log(state);
 
   useEffect(() => {
-    if (true) {
-      return props.AddressSetter(Name, Phone, Email, Address, City,true);
-    } 
-    else {
-      return props.AddressSetter(null,null,null,null,null,false)
-    }
-  }, [validCity]);
+     props.AddressSetter(Name, Phone, Email, Address, City,);
+  }, [Name,Email,Phone,Address,City]);
 
   const nameValidator = () => {
     if (Name == '') {

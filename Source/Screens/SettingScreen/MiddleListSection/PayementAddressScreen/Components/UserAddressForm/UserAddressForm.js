@@ -20,14 +20,12 @@ export default function UserAddressForm() {
   const [Email, setEmail] = useState(null);
   const [Address, setAddress] = useState(null);
   const [City, setCity] = useState(null);
-  const [ValidForm, setValidForm] = useState(false)
+  const [ValidForm, setValidForm] = useState(false);
   const [DefaultAddress, setDefaultAddress] = useState(false);
-
-  const state = useSelector(state => state.AddressReducer2);
 
   const navigation = useNavigation();
 
-  const AddressSetter = (Name, Phone, Email, Address, City,ValidForm) => {
+  const AddressSetter = (Name, Phone, Email, Address, City, ValidForm) => {
     setName(Name);
     setPhone(Phone);
     setEmail(Email);
@@ -35,23 +33,27 @@ export default function UserAddressForm() {
     setCity(City);
     setValidForm(ValidForm);
   };
-  
-  React.useEffect(() => {
-    console.log(ValidForm);
-  }, [ValidForm]);
 
-  const StoreAndNavigate=()=>{
-    if(ValidForm){
-      store.dispatch({
-        type: 'ADD_ADDRESS',
-        payload: {Name, Phone, Email, Address, City},
-      })
-      navigation.navigate("PaymentScreen");
+  React.useEffect(() => {}, [ValidForm]);
+
+  const StoreAndNavigate = () => {
+    if(Name==="" || Email==="" || Phone==="" || Address==="" || City===""){
+      navigation.navigate('PaymentScreen');
     }
     else{
-      return Alert.alert("Missing Filed","Enter all Data")
+      store.dispatch({
+        type: 'ADD_ADDRESS',
+        payload: {
+          name: Name,
+          phone: Phone,
+          email: Email,
+          address: Address,
+          city: City,
+        },
+      });
+      navigation.navigate('PaymentScreen');
     }
-  }
+  };
 
   return (
     <ScrollView>
@@ -69,9 +71,7 @@ export default function UserAddressForm() {
 
         <TouchableOpacity
           style={styles.buttonContainer}
-          onPress={() =>
-            StoreAndNavigate()
-          }>
+          onPress={() => StoreAndNavigate()}>
           <View style={styles.button}>
             <Text style={styles.continueText}>Continue</Text>
           </View>
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20.0,
     paddingVertical: 10.0,
     backgroundColor: 'white',
-    height:'100%'
+    height: '100%',
   },
 
   textContainer: {
@@ -157,7 +157,6 @@ const styles = StyleSheet.create({
   defaultContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    
   },
   defaultText: {
     fontSize: 13.0,

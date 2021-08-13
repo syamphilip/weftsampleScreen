@@ -15,6 +15,7 @@ import CartScreen from '../Screens/CartScreen/CartScreen';
 import PaymentScreen from '../Screens/PaymentScreen/PaymentScreen';
 import { useSelector } from 'react-redux';
 import TodoScreen from '../Screens/TodoScreen/TodoScreen';
+import OrderPlacedScreen from '../Screens/OrderPlacedScreen/OrderPlacedScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -67,6 +68,7 @@ function AppStack() {
       <Stack.Screen name="CartScreen" component={CartScreen} />
       <Stack.Screen name="PaymentScreen" component={PaymentScreen} />
       <Stack.Screen name="TodoScreen" component={TodoScreen} />
+      <Stack.Screen name="OrderPlacedScreen" component={OrderPlacedScreen} />
       </>}
     </Stack.Navigator>
   </NavigationContainer>
