@@ -194,7 +194,7 @@ function OrderPlacedScreen() {
       <Modal visible={isModalVisible} >
         <View style={styles.modalMainContainer}>
           <View style={styles.submitModalBar}><Text style={styles.submitReviewText}>Sumbit Review</Text></View>
-          <TextInput placeholder="Enter your review" style={styles.reviewTextinput}/>
+          <TextInput placeholder="Enter your review" style={styles.reviewTextinput} multiline={true}/>
           <View style={styles.ratingStarView}>
             <Text style={styles.ratingText}>1 2 3 4 5 6</Text>
             <Text style={styles.ratingText}>   Rate this product</Text>
