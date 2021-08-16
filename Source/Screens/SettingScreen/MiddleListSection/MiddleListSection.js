@@ -2,6 +2,8 @@ import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import IoniIcon from 'react-native-vector-icons/Ionicons';
+
 import toggleLogin from '../../../Redux/actionCreator';
 import store from '../../../Redux/Redux';
 
@@ -31,10 +33,10 @@ export default function MiddleListSection() {
       goto:()=>navigation.navigate("TodoScreen")
     },
     {
-      icon: <Icon name="phone-alt" size={20} style={{color: 'black'}} />,
-      name: 'Support',
+      icon: <IoniIcon name="cart" size={20} style={{color: 'black'}} />,
+      name: 'Your Orders',
       label: '',
-      goto:()=>navigation.navigate("PaymentAddressScreen")
+      goto:()=>navigation.navigate("OrdersScreen")
     },
     {
       icon: <Icon name="shield-alt" size={20} style={{color: 'black'}} />,

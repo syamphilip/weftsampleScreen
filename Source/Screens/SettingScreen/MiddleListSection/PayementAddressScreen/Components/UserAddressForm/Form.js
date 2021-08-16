@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, TextInput, StyleSheet, Picker} from 'react-native';
+import {View, Text, TextInput, StyleSheet} from 'react-native';
+import { Picker } from '@react-native-picker/picker';
 //import {useSelector} from 'react-redux';
 //import store from '../../../../../../Redux/Redux'
 
