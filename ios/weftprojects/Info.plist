@@ -69,6 +69,9 @@
 		<string>Octicons.ttf</string>
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
+		<string>BarlowCondensedRegular.ttf</string>
+		<string>BarlowCondensed-Regular.ttf</string>
+		<string>BarlowCondensed-SemiBold.ttf</string>
 	</array>
 </dict>
 </plist>

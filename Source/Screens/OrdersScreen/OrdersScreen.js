@@ -45,13 +45,13 @@ function OrdersScreen() {
   const orderListView = ({item}) => (
     <View style={styles.ItemMainView}>
       <View style={styles.OrderNoAndAEDView}>
-        <Text>Order No: {item.orderNo}</Text>
+        <Text style={styles.OrderNoText}>Order No: {item.orderNo}</Text>
         <Text style={styles.AEDText}>{item.AED}</Text>
       </View>
 
       <View style={styles.blueContainer}>
         <View style={styles.OrderPlacedOrderDateView}>
-          <Text>Order</Text>
+          <Text style={styles.DeliveryDateText}>Order</Text>
           <View style={styles.PlacedView}>
             <Text style={styles.PlacedText}>Placed</Text>
           </View>
@@ -123,10 +123,14 @@ function OrdersScreen() {
             />
           </View>
           <View style={styles.ModalButton}>
-            <TouchableOpacity style={styles.ModalSubmitButton} onPress={()=>setisModalVisible(false)}>
+            <TouchableOpacity
+              style={styles.ModalSubmitButton}
+              onPress={() => setisModalVisible(false)}>
               <Text style={styles.ModalSubmitText}>Submit</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.ModalCancelButton} onPress={()=>setisModalVisible(false)}>
+            <TouchableOpacity
+              style={styles.ModalCancelButton}
+              onPress={() => setisModalVisible(false)}>
               <Text style={styles.ModalCancelText}>Cancel</Text>
             </TouchableOpacity>
           </View>
@@ -161,17 +165,18 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
   },
   orderText: {
-    fontWeight: '700',
+    fontFamily: 'BarlowCondensed-SemiBold',
     fontSize: 20.0,
   },
   OrderHistoryAndPriceView: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingTop: 10.0,
+    paddingVertical: 10.0,
     paddingHorizontal: 15.0,
   },
   OrderHistoryAndPriceText: {
-    fontWeight: 'bold',
+    fontSize: 15.0,
+    fontFamily: 'BarlowCondensed-SemiBold',
   },
 
   ItemMainView: {
@@ -187,12 +192,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     margin: 15.0,
-    paddingVertical: 10.0,
+    paddingVertical: 8.0,
     borderBottomWidth: 0.5,
     borderColor: 'gray',
   },
   AEDText: {
-    fontWeight: 'bold',
+    fontFamily: 'BarlowCondensed-SemiBold',
+    fontSize: 16,
   },
   blueContainer: {
     backgroundColor: '#e2ece9',
@@ -211,7 +217,7 @@ const styles = StyleSheet.create({
     color: 'white',
     padding: 2.0,
     paddingHorizontal: 5.0,
-    fontWeight: 'bold',
+    fontFamily: 'BarlowCondensed-SemiBold',
   },
   OrderDateView: {
     flexDirection: 'row',
@@ -220,6 +226,8 @@ const styles = StyleSheet.create({
   },
   OrderDate: {
     marginLeft: 2.0,
+    fontFamily: 'BarlowCondensed-Regular',
+    fontSize:15
   },
   DeliveryDateView: {
     flexDirection: 'row',
@@ -228,6 +236,8 @@ const styles = StyleSheet.create({
   },
   DeliveryDateText: {
     marginLeft: 5.0,
+    fontFamily: 'BarlowCondensed-Regular',
+    fontSize: 16,
   },
   ButtonsView: {
     flexDirection: 'row',
@@ -247,12 +257,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#43aa8b',
   },
   ViewOrderText: {
-    fontWeight: 'bold',
+    fontFamily: 'BarlowCondensed-SemiBold',
+    fontSize: 15,
     color: '#43aa8b',
   },
   CancelOrderText: {
     color: 'white',
-    fontWeight: 'bold',
+    fontFamily: 'BarlowCondensed-SemiBold',
+    fontSize: 15,
   },
   ModalMainContainer: {
     backgroundColor: 'white',
@@ -265,7 +277,8 @@ const styles = StyleSheet.create({
     padding: 15.0,
   },
   ModalCancelOrderText: {
-    fontSize: 18.0,
+    fontFamily:'BarlowCondensed-Regular',
+    fontSize: 22.0,
     color: 'white',
   },
   TextInputStyleModal: {
@@ -285,10 +298,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#43aa8b',
     padding: 8.0,
     paddingHorizontal: 15.0,
-    marginRight: 20.0,
+    marginRight: 15.0,
   },
   ModalSubmitText: {
-    fontWeight: 'bold',
+    fontFamily:'BarlowCondensed-SemiBold',
     color: 'white',
     fontSize: 15.0,
   },
@@ -299,9 +312,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15.0,
     marginRight: 20.0,
   },
-  ModalCancelText:{
-    fontWeight: 'bold',
+  ModalCancelText: {
     color: '#43aa8b',
     fontSize: 15.0,
-  }
+    fontFamily:'BarlowCondensed-SemiBold',
+  },
+  OrderNoText: {
+    fontFamily: 'BarlowCondensed-Regular',
+    fontSize: 16,
+  },
 });
