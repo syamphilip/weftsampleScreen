@@ -17,6 +17,7 @@ import { useSelector } from 'react-redux';
 import TodoScreen from '../Screens/TodoScreen/TodoScreen';
 import OrderPlacedScreen from '../Screens/OrderPlacedScreen/OrderPlacedScreen';
 import OrdersScreen from '../Screens/OrdersScreen/OrdersScreen';
+import ApplyCouponScreen from '../Screens/ApplyCouponScreen/ApplyCouponScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -71,6 +72,7 @@ function AppStack() {
       <Stack.Screen name="TodoScreen" component={TodoScreen} />
       <Stack.Screen name="OrderPlacedScreen" component={OrderPlacedScreen} />
       <Stack.Screen name="OrdersScreen" component={OrdersScreen} />
+      <Stack.Screen name="ApplyCouponScreen" component={ApplyCouponScreen}/>
       </>}
     </Stack.Navigator>
   </NavigationContainer>

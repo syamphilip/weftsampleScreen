@@ -104,7 +104,7 @@ function CartScreen({route}) {
         <TouchableOpacity
           style={styles.checkOutButton}
           onPress={() => {
-            naviagtion.navigate('PaymentAddressScreen');
+            naviagtion.navigate('ApplyCouponScreen');
           }}>
           <Text style={styles.checkOutText}>CHECKOUT</Text>
         </TouchableOpacity>
