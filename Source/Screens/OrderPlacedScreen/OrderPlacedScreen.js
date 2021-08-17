@@ -10,28 +10,32 @@ import {
   Image,
   Modal,
   TextInput,
-  Dimensions
+  Dimensions,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {Picker} from '@react-native-picker/picker';
+import {Rating} from 'react-native-ratings';
 import {useSelector} from 'react-redux';
 
 let date = Date();
 let currentDate = date.split(' ');
 let randomOrderNumber = Math.floor(Math.random() * 1000, 10000);
 
-let heightScreen=Dimensions.get('window').height;
+let heightScreen = Dimensions.get('window').height;
 
 function OrderPlacedScreen() {
-
   const navigationPointer = useNavigation();
   const [PickerState, setPickerState] = useState('Invoice');
 
-  const AddressReducer1State = useSelector(state => state.AddressReducer2)
+  const AddressReducer1State = useSelector(state => state.AddressReducer2);
 
   const [isModalVisible, setisModalVisible] = useState(false);
 
   console.log(AddressReducer1State);
+
+  function handleRating(Rating){
+    console.log(Rating);
+  }
 
   return (
     <SafeAreaView style={styles.SafeArea}>
@@ -186,30 +190,46 @@ function OrderPlacedScreen() {
 
       <View style={styles.bottomView}>
         <Text style={styles.brandText}>Brand - WRAPMATSER</Text>
-        <TouchableOpacity style={styles.submitButton} onPress={()=>setisModalVisible(true)}>
+        <TouchableOpacity
+          style={styles.submitButton}
+          onPress={() => setisModalVisible(true)}>
           <Text style={styles.buttonText}>Submit Review</Text>
         </TouchableOpacity>
       </View>
 
-      <Modal visible={isModalVisible} >
+      <Modal visible={isModalVisible}>
         <View style={styles.modalMainContainer}>
-          <View style={styles.submitModalBar}><Text style={styles.submitReviewText}>Sumbit Review</Text></View>
-          <TextInput placeholder="Enter your review" style={styles.reviewTextinput} multiline={true}/>
+          <View style={styles.submitModalBar}>
+            <Text style={styles.submitReviewText}>Sumbit Review</Text>
+          </View>
+          <TextInput
+            placeholder="Enter your review"
+            style={styles.reviewTextinput}
+            multiline={true}
+          />
           <View style={styles.ratingStarView}>
-            <Text style={styles.ratingText}>1 2 3 4 5 6</Text>
-            <Text style={styles.ratingText}>   Rate this product</Text>
+            <Rating
+              ratingColor="#3498db"
+              ratingBackgroundColor="#c8c7c8"
+              ratingCount={5}
+              imageSize={20}
+              onFinishRating={handleRating}
+              style={{paddingVertical: 10}}
+            />
+            <Text style={styles.ratingText}> Rate this product</Text>
           </View>
           <View style={styles.ModalButtons}>
             <TouchableOpacity style={styles.submitModalButton}>
-              <Text style={{color:'white'}}>Submit</Text>
+              <Text style={styles.ModalSubmitText}>Submit</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.cancelModalButton} onPress={()=>setisModalVisible(false)}>
-            <Text>Cancel</Text>
+            <TouchableOpacity
+              style={styles.cancelModalButton}
+              onPress={() => setisModalVisible(false)}>
+              <Text style={styles.ModalCancelText}>Cancel</Text>
             </TouchableOpacity>
           </View>
         </View>
       </Modal>
-      
     </SafeAreaView>
   );
 }
@@ -411,51 +431,63 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#7209b7',
   },
-  modalMainContainer:{
-    margin:15.0,
-    backgroundColor:'white',
-    borderWidth:0.5
+  modalMainContainer: {
+    margin: 15.0,
+    backgroundColor: 'white',
+    borderWidth: 0.5,
   },
-  submitModalBar:{
-    width:'100%',
-    backgroundColor:'#7209b7',
-    padding:10.0
+  submitModalBar: {
+    width: '100%',
+    backgroundColor: '#7209b7',
+    padding: 10.0,
   },
-  submitReviewText:{
-    fontSize:20.0,
-    color:'white'
+  submitReviewText: {
+    fontSize: 22.0,
+    color: 'white',
+    fontFamily: 'BarlowCondensed-Regular',
   },
-  reviewTextinput:{
-    height:heightScreen*0.2,
-    borderColor:'gray',
-    borderWidth:0.5,
-    margin:10.0,
-    borderRadius:2.0,
-    fontStyle:'italic'
+  reviewTextinput: {
+    height: heightScreen * 0.2,
+    borderColor: 'gray',
+    borderWidth: 0.5,
+    margin: 10.0,
+    borderRadius: 2.0,
+    fontStyle: 'italic',
   },
-  ratingStarView:{
-    flexDirection:'row',
-    marginHorizontal:10.0
+  ratingStarView: {
+    flexDirection: 'row',
+    marginHorizontal: 10.0,
+    alignItems:'center'
   },
-  ratingText:{
-    color:'gray'
+  ratingText: {
+    color: 'gray',
   },
-  ModalButtons:{
-    flexDirection:'row',
-    margin:10
+  ModalButtons: {
+    flexDirection: 'row',
+    margin: 10,
   },
-  submitModalButton:{
-    backgroundColor:'#7209b7',
-    alignItems:'center',
-    padding:10.0,
-    paddingHorizontal:20.0
+  submitModalButton: {
+    backgroundColor: '#7209b7',
+    alignItems: 'center',
+    padding: 10.0,
+    paddingHorizontal: 20.0,
   },
-  cancelModalButton:{
-    borderColor:'#7209b7',
-    borderWidth:1,
-    alignItems:'center',
-    marginLeft:10.0,
-    padding:10.0,
-    paddingHorizontal:20.0
-  }  
+  cancelModalButton: {
+    borderColor: '#7209b7',
+    borderWidth: 1,
+    alignItems: 'center',
+    marginLeft: 10.0,
+    padding: 10.0,
+    paddingHorizontal: 20.0,
+  },
+  ModalSubmitText: {
+    color: 'white',
+    fontFamily: 'BarlowCondensed-SemiBold',
+    fontSize: 16.0,
+  },
+  ModalCancelText: {
+    color: '#7209b7',
+    fontFamily: 'BarlowCondensed-SemiBold',
+    fontSize: 16.0,
+  },
 });
