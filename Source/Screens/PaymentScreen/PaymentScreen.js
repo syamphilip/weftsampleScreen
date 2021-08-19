@@ -13,7 +13,7 @@ import {useNavigation} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Swiper from 'react-native-swiper';
-
+/// just comment
 const CreditCards = [
   {name: 'Leanne Graham', cardNumber: '1884 5264 1112', exDate: '02/26'},
   {name: 'Ervin Howell', cardNumber: '2545 8756 5552', exDate: '09/24'},
